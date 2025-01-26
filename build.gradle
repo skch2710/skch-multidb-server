@@ -1,12 +1,17 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '2.7.12'
-	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+	id 'org.springframework.boot' version '3.4.2'
+	id 'io.spring.dependency-management' version '1.1.7'
 }
 
-group = 'com.demo'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
+group = 'com.skch'
+version = '1.0'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
 
 configurations {
 	compileOnly {
@@ -19,15 +24,20 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	// Swagger (OpenAPI)
+    implementation('org.springdoc:springdoc-openapi-starter-webmvc-ui:2.7.0') {
+        exclude group: 'org.springframework', module: 'spring-webmvc'
+    }
+	runtimeOnly 'com.microsoft.sqlserver:mssql-jdbc'
 	runtimeOnly 'org.postgresql:postgresql'
 	annotationProcessor 'org.projectlombok:lombok'
-	implementation 'org.springdoc:springdoc-openapi-ui:1.6.9'
-	implementation 'org.springframework.boot:spring-boot-configuration-processor'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
 tasks.named('test') {

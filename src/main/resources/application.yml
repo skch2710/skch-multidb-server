@@ -1,29 +1,23 @@
-    
+server:
+  port: 8088
+
 spring:
+  application:
+    name: skch-multidb-server
   datasource:
-    db1:
-      url: jdbc:postgresql://localhost:5432/sathish
+    postgres:
+      url: jdbc:postgresql://localhost:5433/postgres
       username: postgres
-      password: Sathish@123
-      hikari:
-        maximum-pool-size: 10
-    db2:
-      url: jdbc:postgresql://localhost:5432/kumar
-      username: postgres
-      password: Sathish@123
-      hikari:
-        maximum-pool-size: 10
+      password: Sathish123
+      driver-class-name: org.postgresql.Driver
+
+    sql:
+      url: jdbc:sqlserver://localhost:1433;databaseName=mydb;encrypt=true;trustServerCertificate=true;
+      username: sathish_ch
+      password: Sathish@2710
+      driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+
   jpa:
-#    database-platform: org.hibernate.dialect.PostgreSQLDialect
-    hibernate:
-      ddl-auto: update
-#      naming:
-#        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     properties:
       hibernate:
-        show_sql: true
-        
-#logging:
-#  level:
-#    org.hibernate.SQL: DEBUG
-#    org.hibernate.type: TRACE
+        dialect: org.hibernate.dialect.PostgreSQLDialect # For Postgres
